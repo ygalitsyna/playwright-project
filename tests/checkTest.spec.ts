@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach('', async ({page}) => {
+test.beforeEach(async ({page}) => {
   await page.goto('/');
   await page.locator('#dialog').getByRole('button').filter({hasText: 'Accept all'}).click()
 })
