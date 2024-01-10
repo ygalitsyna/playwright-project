@@ -7,7 +7,6 @@ export class HomePage {
     readonly searchBar: Locator
     readonly subscriptionsButton: Locator
     readonly menuButton: Locator
-    readonly navigationSection: Locator
     readonly trendingButton: Locator
     readonly musicButton: Locator
     readonly moviesButton: Locator
@@ -23,9 +22,8 @@ export class HomePage {
         this.acceptCookiesButton = page.locator('#dialog').getByRole('button').filter({hasText: 'Accept all'})
         this.searchBar = page.getByPlaceholder('Search')
         this.subscriptionsButton = page.getByRole('link', { name: 'Subscriptions' })
-        this.menuButton = page.locator('#start #guide-button')
-        this.navigationSection = page.locator('#guide-inner-content')
-        this.trendingButton = page.locator('tp-yt-paper-item').filter({ hasText: 'Trending' })
+        this.menuButton = page.getByRole('button', { name: 'Guide' })
+        this.trendingButton = page.getByTitle('Trending').getByRole('link')
         this.musicButton = page.getByRole('link', { name: 'Music' }).first()
         this.moviesButton = page.getByRole('link', { name: 'Movies' }).first()
         this.liveButton = page.getByRole('link', { name: 'Live' }).first()
@@ -40,10 +38,11 @@ export class HomePage {
         await this.acceptCookiesButton.click()
         await expect(this.dialog).not.toBeVisible()
         await expect(this.searchBar).toBeEditable()
+        await this.page.waitForLoadState('domcontentloaded')
     }
 
     async gotoSearchResultPage(){
-        await this.searchBar.fill('funny cats')
+        await this.searchBar.pressSequentially('funny cats', {delay: 500})
         await this.searchBar.press('Enter')
         await this.page.waitForURL('/results?search_query=funny+cats')
     }
@@ -54,57 +53,58 @@ export class HomePage {
     }
 
     async gotoTrendingPage(){
+        await expect(this.menuButton).toBeEnabled()
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.trendingButton).toBeEnabled()
         await this.trendingButton.click()
         await this.page.waitForURL('/feed/trending*')
     }
 
     async gotoMusicPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.musicButton).toBeEnabled()
         await this.musicButton.click()
         await this.page.waitForURL('/channel/*')
     }
 
     async gotoMoviesPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.moviesButton).toBeEnabled()
         await this.moviesButton.click()
         await this.page.waitForURL('/feed/storefront*')
     }
 
     async gotoLivePage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.liveButton).toBeEnabled()
         await this.liveButton.click()
         await this.page.waitForURL('/channel/*')
     }
 
     async gotoGamingPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.gamingButton).toBeEnabled()
         await this.gamingButton.click()
         await this.page.waitForURL('/gaming*')
     }
 
     async gotoNewsPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.newsButton).toBeEnabled()
         await this.newsButton.click()
         await this.page.waitForURL('/channel/*')
     }
 
     async gotoSportsPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.sportsButton).toBeEnabled()
         await this.sportsButton.click()
         await this.page.waitForURL('/channel/*')
     }
 
     async gotoPodcastsPage(){
         await this.menuButton.click()
-        await expect(this.navigationSection).toBeVisible()
+        await expect(this.podcastsButton).toBeEnabled()
         await this.podcastsButton.click()
         await this.page.waitForURL('/podcasts*')
     }
