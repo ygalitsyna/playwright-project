@@ -23,7 +23,7 @@ export class HomePage {
         this.searchBar = page.getByPlaceholder('Search')
         this.subscriptionsButton = page.getByRole('link', { name: 'Subscriptions' })
         this.menuButton = page.getByRole('button', { name: 'Guide' })
-        this.trendingButton = page.getByTitle('Trending').getByRole('link')
+        this.trendingButton = page.locator('#sections').getByRole('link', { name: 'Trending' })
         this.musicButton = page.getByRole('link', { name: 'Music' }).first()
         this.moviesButton = page.getByRole('link', { name: 'Movies' }).first()
         this.liveButton = page.getByRole('link', { name: 'Live' }).first()
@@ -55,7 +55,6 @@ export class HomePage {
     async gotoTrendingPage(){
         await expect(this.menuButton).toBeEnabled()
         await this.menuButton.click()
-        await expect(this.trendingButton).toBeEnabled()
         await this.trendingButton.click()
         await this.page.waitForURL('/feed/trending*')
     }
