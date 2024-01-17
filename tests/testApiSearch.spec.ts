@@ -1,7 +1,10 @@
-import { test, expect, request } from '@playwright/test';
-import apiSearchIncognito from '../test-data/apiSearchIncognito.json';
+import { test, expect, request } from '@playwright/test'
+import apiSearchIncognito from '../test-data/apiSearchIncognito.json'
+import { testRail, CurrentTest } from '@zebrunner/javascript-agent-playwright'
 
 test('check inequality of the first videos on the youtube page using API', async ({request}) => {
+    testRail.testCaseId("C3713")
+    CurrentTest.setMaintainer('ygalitsyna')
     const response = await request.post('/youtubei/v1/search?*', {
         data: JSON.stringify(apiSearchIncognito)
     })
