@@ -1,4 +1,5 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
+import 'dotenv/config'
 
 export default defineConfig({
   testDir: './tests',
@@ -15,7 +16,7 @@ export default defineConfig({
         projectKey: 'YANA',
         server: {
           hostname: 'https://solvdinternal.zebrunner.com',
-          accessToken: '8bCivk6EZxgQ7a9XwUzBelqrJDV7f0opBe2c9H52eZQ3dnxgnn'
+          accessToken: process.env.ZEBRUNNER_ACCESS_TOKEN
         },
         launch: {
           displayName: "Playwright launch",
