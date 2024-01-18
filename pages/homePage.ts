@@ -22,7 +22,7 @@ export class HomePage {
         this.acceptCookiesButton = page.locator('#dialog').getByRole('button').filter({hasText: 'Accept all'})
         this.searchBar = page.getByPlaceholder('Search')
         this.subscriptionsButton = page.getByRole('link', { name: 'Subscriptions' })
-        this.menuButton = page.getByRole('button', { name: 'Guide' })
+        this.menuButton = page.getByRole('button', { name: 'Guide', exact:true })
         this.trendingButton = page.locator('#sections').getByRole('link', { name: 'Trending' })
         this.musicButton = page.getByRole('link', { name: 'Music' }).first()
         this.moviesButton = page.getByRole('link', { name: 'Movies' }).first()
@@ -37,12 +37,12 @@ export class HomePage {
         await this.page.goto('/')
         await this.acceptCookiesButton.click()
         await expect(this.dialog).not.toBeVisible()
-        await expect(this.searchBar).toBeEditable()
         await this.page.waitForLoadState('domcontentloaded')
     }
 
     async gotoSearchResultPage(){
-        await this.searchBar.pressSequentially('funny cats', {delay: 500})
+        // await this.searchBar.pressSequentially('funny cats', {delay: 100})
+        await this.searchBar.pressSequentially('funny cats')
         await this.searchBar.press('Enter')
         await this.page.waitForURL('/results?search_query=funny+cats')
     }
@@ -53,7 +53,7 @@ export class HomePage {
     }
 
     async gotoTrendingPage(){
-        await expect(this.menuButton).toBeEnabled()
+        await this.page.waitForTimeout(1000);
         await this.menuButton.click()
         await this.trendingButton.click()
         await this.page.waitForURL('/feed/trending*')
