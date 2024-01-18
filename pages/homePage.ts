@@ -41,7 +41,6 @@ export class HomePage {
     }
 
     async gotoSearchResultPage(){
-        // await this.searchBar.pressSequentially('funny cats', {delay: 100})
         await this.searchBar.pressSequentially('funny cats')
         await this.searchBar.press('Enter')
         await this.page.waitForURL('/results?search_query=funny+cats')
