@@ -6,6 +6,6 @@ export class TrendingPage {
 
     constructor(page: Page){
         this.page = page
-        this.title = this.page.locator('ytd-browse[role="main"] #contentContainer #page-header')
+        this.title = this.page.locator('ytd-browse[role="main"] #contentContainer #page-header h1')
     }
 }

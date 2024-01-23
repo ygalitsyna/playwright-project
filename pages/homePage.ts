@@ -52,7 +52,7 @@ export class HomePage {
     }
 
     async gotoTrendingPage(){
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForSelector('#contents ytd-thumbnail')
         await this.menuButton.click()
         await this.trendingButton.click()
         await this.page.waitForURL('/feed/trending*')
