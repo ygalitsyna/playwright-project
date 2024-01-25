@@ -15,6 +15,10 @@ export class HomePage {
     readonly newsButton: Locator
     readonly sportsButton: Locator
     readonly podcastsButton: Locator
+    readonly firstVideoThumbnail: Locator
+    readonly firstVideoTitle: Locator
+    readonly firstVideoChannelName: Locator
+    readonly firstVideoChannelAvatar: Locator
 
     constructor(page: Page){
         this.page = page
@@ -31,6 +35,10 @@ export class HomePage {
         this.newsButton = page.getByRole('link', { name: 'News' }).first()
         this.sportsButton = page.getByRole('link', { name: 'Sports' }).first()
         this.podcastsButton = page.getByRole('link', { name: 'Podcasts' }).first()
+        this.firstVideoThumbnail = page.locator('ytd-rich-grid-media ytd-thumbnail #thumbnail').first()
+        this.firstVideoTitle = page.locator('#video-title-link').first()
+        this.firstVideoChannelName = page.locator('ytd-rich-grid-media #channel-name a').first()
+        this.firstVideoChannelAvatar = page.locator('#avatar-link').first()
     }
 
     async goto() {
@@ -105,5 +113,15 @@ export class HomePage {
         await expect(this.podcastsButton).toBeEnabled()
         await this.podcastsButton.click()
         await this.page.waitForURL('/podcasts*')
+    }
+
+    async clickOnVideo(locator: Locator){
+        await locator.click()
+        await this.page.waitForURL('/watch?v=*')
+    }
+
+    async clickOnChannel(locator: Locator){
+        await locator.click()
+        await this.page.waitForURL('/@*')
     }
 }
