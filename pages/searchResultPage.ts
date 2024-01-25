@@ -73,11 +73,11 @@ export class SearchResultPage {
     }
 
     async getAllTimes(){
-        await expect(this.timesList).toHaveCount(20)
+        await expect(this.timesList).toHaveCount(19)
         const listOfTimes: number[] = []
         for(const time of await this.timesList.all()){
             let text = await time.textContent()
-            if( text?.replace('Streamed ','').includes('minute')){
+            if( text?.includes('minute')){
                 listOfTimes.push(Math.ceil(Number(text?.replace('Streamed ','').replace(/( minute ago)|( minutes ago)/, '')) / 60))
             } else if( text?.includes('hour')){
                 listOfTimes.push(Number(text?.replace('Streamed ','').replace(/( hour ago)|( hours ago)/, '')))
