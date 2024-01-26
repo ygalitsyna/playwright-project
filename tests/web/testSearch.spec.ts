@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../pages/homePage'
-import { SearchResultPage } from '../pages/searchResultPage'
+import { HomePage } from '../../pages/homePage'
+import { SearchResultPage } from '../../pages/searchResultPage'
 import { testRail, CurrentTest } from '@zebrunner/javascript-agent-playwright'
 
 test('check inequality of the first videos on the youtube page', async ({page}) => {

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../pages/homePage'
-import { SubscriptionsPage } from '../pages/subscriptionsPage'
+import { HomePage } from '../../pages/homePage'
+import { SubscriptionsPage } from '../../pages/subscriptionsPage'
 import { testRail, CurrentTest } from '@zebrunner/javascript-agent-playwright'
 
 test('check subscriptions section for user in incognito mode', async ({ page }) => {

@@ -3,7 +3,6 @@ import 'dotenv/config'
 
 export default defineConfig({
   testDir: './tests',
-  testIgnore: 'checkTest.spec.ts',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
@@ -59,18 +58,26 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'api',
+      testMatch: 'api/*.spec.ts',
+    },
+
+    {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testMatch: 'web/*.spec.ts',
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testMatch: 'web/*.spec.ts',
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      testMatch: 'web/*.spec.ts',
     },
   ],
 });

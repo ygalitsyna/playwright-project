@@ -1,5 +1,5 @@
 import { test, expect, request } from '@playwright/test'
-import apiSearchIncognito from '../test-data/apiSearchIncognito.json'
+import apiSearchIncognito from '../../test-data/apiSearchIncognito.json'
 import { testRail, CurrentTest } from '@zebrunner/javascript-agent-playwright'
 
 test('check inequality of the first videos on the youtube page using API', async ({request}) => {
