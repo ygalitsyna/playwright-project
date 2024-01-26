@@ -19,6 +19,11 @@ export class HomePage {
     readonly firstVideoTitle: Locator
     readonly firstVideoChannelName: Locator
     readonly firstVideoChannelAvatar: Locator
+    readonly settingsButton: Locator
+    readonly appearanceButton: Locator
+    readonly themeOptions: Locator
+    readonly header: Locator
+    readonly headerBackground: Locator
 
     constructor(page: Page){
         this.page = page
@@ -39,6 +44,11 @@ export class HomePage {
         this.firstVideoTitle = page.locator('#video-title-link').first()
         this.firstVideoChannelName = page.locator('ytd-rich-grid-media #channel-name a').first()
         this.firstVideoChannelAvatar = page.locator('#avatar-link').first()
+        this.settingsButton = page.getByRole('button', { name: 'Settings' })
+        this.appearanceButton = page.locator('ytd-toggle-theme-compact-link-renderer #label')
+        this.themeOptions = page.locator('#submenu ytd-compact-link-renderer').filter({hasText: 'theme'})
+        this.header = page.locator('ytd-masthead#masthead')
+        this.headerBackground = this.header.locator('#background')
     }
 
     async goto() {
@@ -123,5 +133,17 @@ export class HomePage {
     async clickOnChannel(locator: Locator){
         await locator.click()
         await this.page.waitForURL('/@*')
+    }
+
+    async clickOnSettinsButton(){
+        await this.settingsButton.click();
+    }
+
+    async clickOnAppearanceButton(){
+        await this.appearanceButton.click();
+    }
+
+    async changeThemeByName(theme: string){
+        await this.themeOptions.filter({hasText: `${theme}`}).click();
     }
 }
