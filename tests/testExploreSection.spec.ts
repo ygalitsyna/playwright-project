@@ -8,8 +8,11 @@ import { GamingPage } from '../pages/gamingPage'
 import { NewsPage } from '../pages/newsPage'
 import { SportsPage } from '../pages/sportsPage'
 import { PodcastsPage } from '../pages/podcastsPage'
+import { testRail, CurrentTest } from '@zebrunner/javascript-agent-playwright'
 
 test('check that the explore section titles on the home page and on each section page are the same', async ({ page }) => {
+  testRail.testCaseId("C3712")
+  CurrentTest.setMaintainer('ygalitsyna')
   const homePage = new HomePage(page)
   const trendingPage = new TrendingPage(page)
   const musicPage = new MusicPage(page)
