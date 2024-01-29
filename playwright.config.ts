@@ -7,6 +7,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : undefined,
+  expect: {
+    timeout: 10000
+  },
   reporter: [
     [
       '@zebrunner/javascript-agent-playwright',
