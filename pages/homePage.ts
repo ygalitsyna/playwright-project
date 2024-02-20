@@ -19,6 +19,17 @@ export class HomePage {
     readonly firstVideoTitle: Locator
     readonly firstVideoChannelName: Locator
     readonly firstVideoChannelAvatar: Locator
+    readonly settingsButton: Locator
+    readonly appearanceButton: Locator
+    readonly themeOptions: Locator
+    readonly header: Locator
+    readonly headerBackground: Locator
+    readonly languageButton: Locator
+    readonly languageOptions: Locator
+    readonly navigationBar: Locator
+    readonly navigationBarTitles: Locator
+    readonly locationButton: Locator
+    readonly locationOptions: Locator
 
     constructor(page: Page){
         this.page = page
@@ -39,6 +50,17 @@ export class HomePage {
         this.firstVideoTitle = page.locator('#video-title-link').first()
         this.firstVideoChannelName = page.locator('ytd-rich-grid-media #channel-name a').first()
         this.firstVideoChannelAvatar = page.locator('#avatar-link').first()
+        this.header = page.locator('ytd-masthead#masthead')
+        this.settingsButton = this.header.locator('ytd-topbar-menu-button-renderer')
+        this.appearanceButton = page.locator('ytd-toggle-theme-compact-link-renderer #label')
+        this.themeOptions = page.locator('#submenu ytd-compact-link-renderer').filter({hasText: 'theme'})
+        this.headerBackground = this.header.locator('#background')
+        this.languageButton = page.locator('ytd-compact-link-renderer #label').nth(1)
+        this.languageOptions = page.locator('#submenu ytd-compact-link-renderer')
+        this.navigationBar = page.locator('ytd-mini-guide-renderer')
+        this.navigationBarTitles = this.navigationBar.locator('#items ytd-mini-guide-entry-renderer span')
+        this.locationButton = page.locator('ytd-compact-link-renderer #label').filter({hasText: 'Location'})
+        this.locationOptions = page.locator('#submenu ytd-compact-link-renderer')
     }
 
     async goto() {
@@ -123,5 +145,34 @@ export class HomePage {
     async clickOnChannel(locator: Locator){
         await locator.click()
         await this.page.waitForURL('/@*')
+    }
+
+    async clickOnSettinsButton(){
+        await this.settingsButton.click();
+    }
+
+    async clickOnAppearanceButton(){
+        await this.appearanceButton.click();
+    }
+
+    async changeTheme(theme: string){
+        await this.themeOptions.filter({hasText: `${theme}`}).click();
+    }
+
+    async clickOnLanguageButton(){
+        await this.languageButton.click();
+    }
+
+    async changeLanguage(language: string){
+        await this.languageOptions.filter({hasText: `${language}`}).click()
+    }
+
+    async clickOnLocationButton(){
+        await this.locationButton.click();
+    }
+
+    async changeLocation(location: string){
+        await this.locationOptions.filter({hasText: `${location}`}).click()
+        await this.page.waitForSelector('#contents ytd-thumbnail')
     }
 }
