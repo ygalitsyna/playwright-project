@@ -8,7 +8,7 @@ export class NewsPage {
     constructor(page: Page){
         this.page = page
         this.title = this.page.locator('ytd-browse[page-subtype="news"] #contentContainer #page-header')
-        this.firstVideoChannel = this.page.locator('ytd-browse[page-subtype="news"] #content #channel-name').first()
+        this.firstVideoChannel = this.page.locator('ytd-browse[page-subtype="news"] #content #channel-name #container').first()
     }
 
     async clickOnChannel(locator: Locator){
